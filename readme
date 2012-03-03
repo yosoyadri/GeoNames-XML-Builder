@@ -1,2 +1,15 @@
 GeoNames XML Builder
 ====================
+
+Allows to connect to the GeoNames webservices by using the 
+"BenjaminSchroeter.GeoNames.dll" library at "http://geonamesdotorgdotnet.codeplex.com/"
+and converts the results into XML.
+
+How to use it
+=============
+
+1. Launch.
+2. Type the ID of the Geoname to use as root for the XML. Default is the World
+3. Select the depth of the hierarchy to retrieve (World, Continents, Countries, States / Provinces, Cities)
+4. Click "Get XML"
+5. The output is saved to c:\output.xml
