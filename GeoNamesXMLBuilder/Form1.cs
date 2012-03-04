@@ -17,18 +17,20 @@ namespace GeoNamesXMLBuilder
     {
         public int CurrentLevel { get; set; }
         public int ItemCount { get; set; }
+        public Stack<SimpleGeoName> Path { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-            cmbLevels.SelectedIndex = 3;
+            cmbLevels.SelectedIndex = 2;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             btnGo.Enabled = false;
             ItemCount = 0;
-            CurrentLevel = cmbLevels.SelectedIndex;
+            CurrentLevel = cmbLevels.SelectedIndex - 1;
+            Path = new Stack<SimpleGeoName>();
 
             ThreadStart t = GetNodes;
             t.BeginInvoke(Finished, null);
@@ -58,6 +60,7 @@ namespace GeoNamesXMLBuilder
             {
                 var g = GeoNamesOrgWebservice.Get(id);
                 var sg = new SimpleGeoName(g);
+                
                 GetChildren(sg, g);
 
                 var xml = XmlHelper.ToXml<SimpleGeoName>(sg);
@@ -72,13 +75,21 @@ namespace GeoNamesXMLBuilder
 
         private void UpdateCounterUI()
         {
-            this.BeginInvoke((MethodInvoker)delegate { btnGo.Text = string.Format("{0} items processed...", ItemCount); });
+            try
+            {
+                BeginInvoke((MethodInvoker)
+                            delegate
+                                {
+                                    btnGo.Text = string.Format("{0} items processed...", ItemCount);
+                                    lblPath.Text = string.Join(" > ", Path.ToList().Select(x => x.Name).Reverse());
+                                });
+            }catch{}
         }
 
         private void GetChildren(SimpleGeoName sg, Geoname g)
         {
+            Path.Push(sg);
             CurrentLevel--;
-
             try
             {
                 foreach (var n in g.Children(GeoNamesDataStyle.Full))
@@ -88,12 +99,15 @@ namespace GeoNamesXMLBuilder
 
                     var nsg = new SimpleGeoName(n);
                     sg.Children.Add(nsg);
-                    if (CurrentLevel > 0)
+                    if (CurrentLevel >= 0)
+                    {
                         GetChildren(nsg, n);
+                    }
                 }
             }
             catch{}
             CurrentLevel++;
+            Path.Pop();
         }
     }
 }
