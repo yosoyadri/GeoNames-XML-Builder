@@ -16,11 +16,22 @@ namespace GeoNamesXMLBuilder.Model
         {
             Id = geoname.Id;
             Name = geoname.Name;
-            this.Children = new List<SimpleGeoName>();
+            FCode = geoname.Fcode;
+            CountryCode = geoname.CountryCode;
+            
+            Children = new List<SimpleGeoName>();
+
+            LocalNameES = geoname.AlternateNames().Where(x => x.Language == "es").LastOrDefault().Name;
+            LocalNameEN = geoname.AlternateNames().Where(x => x.Language == "en").LastOrDefault().Name;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public List<SimpleGeoName> Children { get; set; }
+        public string FCode { get; set; }
+        public string CountryCode { get; set; }
+
+        public string LocalNameEN { get; set; }
+        public string LocalNameES { get; set; }
     }
 }

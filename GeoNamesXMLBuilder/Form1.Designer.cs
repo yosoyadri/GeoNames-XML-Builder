@@ -33,11 +33,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbLevels = new System.Windows.Forms.ComboBox();
+            this.lblPath = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(75, 85);
+            this.btnGo.Location = new System.Drawing.Point(75, 101);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(164, 23);
             this.btnGo.TabIndex = 0;
@@ -77,21 +78,31 @@
             this.cmbLevels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLevels.FormattingEnabled = true;
             this.cmbLevels.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4"});
+            "WORLD",
+            "CONTINENT",
+            "COUNTRY",
+            "ADM1",
+            "ADM2"});
             this.cmbLevels.Location = new System.Drawing.Point(111, 39);
             this.cmbLevels.Name = "cmbLevels";
             this.cmbLevels.Size = new System.Drawing.Size(190, 21);
             this.cmbLevels.TabIndex = 5;
             // 
+            // lblPath
+            // 
+            this.lblPath.AutoSize = true;
+            this.lblPath.Location = new System.Drawing.Point(12, 70);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(0, 13);
+            this.lblPath.TabIndex = 6;
+            this.lblPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 118);
+            this.ClientSize = new System.Drawing.Size(313, 143);
+            this.Controls.Add(this.lblPath);
             this.Controls.Add(this.cmbLevels);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -111,6 +122,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbLevels;
+        private System.Windows.Forms.Label lblPath;
     }
 }
 
